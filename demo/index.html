@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Demo page</title>
+        <script src="../dist/baseui-wc-polyfills.js"></script>
+    </head>
+    <body>
+        <h1>Demo Page</h1>
+        <div id="print-log"></div>
+
+        <script>
+            window.addEventListener('wc-polyfilled', function(e) {
+                console.log(e);
+            });
+            document.addEventListener('DOMContentLoaded', pageReady);
+
+            function pageReady(){
+                var printLog = document.querySelector('#print-log');
+                window.addEventListener('wc-polyfilled', function(e) {
+                    console.log(e);
+                });
+
+                window.baseuiWcPolyfills.ready()
+                .then(printStatusOnPage(printLog))
+                .catch((reason) => console.error(`Failed due to ${reason}`));
+            }
+
+            function printStatusOnPage(ele) {
+                ele.innerHTML = 'Polyfills loaded';
+            }
+        </script>
+    </body>
+</html>

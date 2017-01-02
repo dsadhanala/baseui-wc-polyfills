@@ -1,0 +1,25 @@
+{
+    "extends": "airbnb",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "no-multi-spaces": 0,
+        "key-spacing": 0,
+        "indent": ["error", 4],
+        "no-console": [
+            "error",
+            {
+                "allow": ["warn", "error"]
+            }
+        ],
+        "no-underscore-dangle": 0,
+        "comma-dangle": 0,
+        "no-useless-constructor": 0,
+        "max-len": 0
+    },
+    "globals": {
+        "window": true,
+        "document": true
+    }
+}
