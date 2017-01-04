@@ -2,6 +2,10 @@ import * as feature from './feature-detection';
 
 const polyfills = [
     {
+        validate: !feature.isCustomElementsNative(),
+        filePath: 'native-shim'
+    },
+    {
         validate: feature.isCustomEventNative(),
         filePath: 'custom-events'
     },

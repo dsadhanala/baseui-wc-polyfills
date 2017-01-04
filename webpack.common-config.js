@@ -3,7 +3,6 @@ const webpack           = require('webpack');
 const path              = require('path');
 const camelCase         = require('lodash.camelcase');
 const mergeWith         = require('lodash.mergewith');
-const isArray           = require('lodash.isarray');
 const Dashboard         = require('webpack-dashboard');
 const DashboardPlugin   = require('webpack-dashboard/plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -60,7 +59,7 @@ function setPlugins(isProd) {
 }
 
 function arrayMerge(objValue, srcValue) {
-    if (isArray(objValue)) {
+    if (typeof objValue !== 'undefined' && Array.isArray(objValue)){
         return objValue.concat(srcValue);
     }
 }

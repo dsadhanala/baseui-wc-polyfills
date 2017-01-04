@@ -1,6 +1,5 @@
 /* eslint-disable import/no-dynamic-require, prefer-template, global-require  */
 import es6Promise from 'es6-promise';
-import './lib/native-shim';
 import polyfills from './config';
 
 // Polyfill promise before loading other
@@ -61,5 +60,7 @@ function ready() {
         .then(polyfillingComplete)
         .catch(rejectedMessage);
 }
+
+ready();
 
 export { polyfills, ready };

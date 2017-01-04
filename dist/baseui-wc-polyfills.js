@@ -82,73 +82,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /**
  * @license
- * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
- */
-
-/**
- * This shim allows elements written in, or compiled to, ES5 to work on native
- * implementations of Custom Elements.
- *
- * ES5-style classes don't work with native Custom Elements because the
- * HTMLElement constructor uses the value of `new.target` to look up the custom
- * element definition for the currently called constructor. `new.target` is only
- * set when `new` is called and is only propagated via super() calls. super()
- * is not emulatable in ES5. The pattern of `SuperClass.call(this)`` only works
- * when extending other ES5-style classes, and does not propagate `new.target`.
- *
- * This shim allows the native HTMLElement constructor to work by generating and
- * registering a stand-in class instead of the users custom element class. This
- * stand-in class's constructor has an actual call to super().
- * `customElements.define()` and `customElements.get()` are both overridden to
- * hide this stand-in class from users.
- *
- * In order to create instance of the user-defined class, rather than the stand
- * in, the stand-in's constructor swizzles its instances prototype and invokes
- * the user-defined constructor. When the user-defined constructor is called
- * directly it creates an instance of the stand-in class to get a real extension
- * of HTMLElement and returns that.
- *
- * There are two important constructors: A patched HTMLElement constructor, and
- * the StandInElement constructor. They both will be called to create an element
- * but which is called first depends on whether the browser creates the element
- * or the user-defined constructor is called directly. The variables
- * `browserConstruction` and `userConstruction` control the flow between the
- * two constructors.
- *
- * This shim should be better than forcing the polyfill because:
- *   1. It's smaller
- *   2. All reaction timings are the same as native (mostly synchronous)
- *   3. All reaction triggering DOM operations are automatically supported
- *
- * There are some restrictions and requirements on ES5 constructors:
- *   1. All constructors in a inheritance hierarchy must be ES5-style, so that
- *      they can be called with Function.call(). This effectively means that the
- *      whole application must be compiled to ES5.
- *   2. Constructors must return the value of the emulated super() call. Like
- *      `return SuperClass.call(this)`
- *   3. The `this` reference should not be used before the emulated super() call
- *      just like `this` is illegal to use before super() in ES6.
- *   4. Constructors should not create other custom elements before the emulated
- *      super() call. This is the same restriction as with native custom
- *      elements.
- *
- *  Compiling valid class-based custom elements to ES5 will satisfy these
- *  requirements with the latest version of popular transpilers.
- */
-window.customElements && eval("(()=>{const a=window.HTMLElement,b=window.customElements.define,c=window.customElements.get,d=new Map,e=new Map;let f=!1,g=!1;window.HTMLElement=function(){if(!f){const a=d.get(this.constructor),b=c.call(window.customElements,a);g=!0;const e=new b;return e}f=!1},window.HTMLElement.prototype=a.prototype,window.customElements.define=((c,h)=>{const i=h.prototype,j=class extends a{constructor(){super(),Object.setPrototypeOf(this,i),g||(f=!0,h.call(this)),g=!1}},k=j.prototype;j.observedAttributes=h.observedAttributes,k.connectedCallback=i.connectedCallback,k.disconnectedCallback=i.disconnectedCallback,k.attributeChangedCallback=i.attributeChangedCallback,k.adoptedCallback=i.adoptedCallback,d.set(h,c),e.set(c,h),b.call(window.customElements,c,j)}),window.customElements.get=(a=>e.get(a))})();");
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-/**
- * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
  * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
  * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -410,7 +343,7 @@ window.customElements && eval("(()=>{const a=window.HTMLElement,b=window.customE
 })();
 
 /***/ },
-/* 2 */
+/* 1 */
 /***/ function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -1269,7 +1202,7 @@ var Deferred = void 0;
 })();
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 (function customEventPloyfill() {
@@ -1292,7 +1225,7 @@ var Deferred = void 0;
 })();
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 (function (self) {
@@ -1744,6 +1677,73 @@ var Deferred = void 0;
 })(typeof self !== 'undefined' ? self : this);
 
 /***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+/**
+ * @license
+ * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+ * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+ * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+ * Code distributed by Google as part of the polymer project is also
+ * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+ */
+
+/**
+ * This shim allows elements written in, or compiled to, ES5 to work on native
+ * implementations of Custom Elements.
+ *
+ * ES5-style classes don't work with native Custom Elements because the
+ * HTMLElement constructor uses the value of `new.target` to look up the custom
+ * element definition for the currently called constructor. `new.target` is only
+ * set when `new` is called and is only propagated via super() calls. super()
+ * is not emulatable in ES5. The pattern of `SuperClass.call(this)`` only works
+ * when extending other ES5-style classes, and does not propagate `new.target`.
+ *
+ * This shim allows the native HTMLElement constructor to work by generating and
+ * registering a stand-in class instead of the users custom element class. This
+ * stand-in class's constructor has an actual call to super().
+ * `customElements.define()` and `customElements.get()` are both overridden to
+ * hide this stand-in class from users.
+ *
+ * In order to create instance of the user-defined class, rather than the stand
+ * in, the stand-in's constructor swizzles its instances prototype and invokes
+ * the user-defined constructor. When the user-defined constructor is called
+ * directly it creates an instance of the stand-in class to get a real extension
+ * of HTMLElement and returns that.
+ *
+ * There are two important constructors: A patched HTMLElement constructor, and
+ * the StandInElement constructor. They both will be called to create an element
+ * but which is called first depends on whether the browser creates the element
+ * or the user-defined constructor is called directly. The variables
+ * `browserConstruction` and `userConstruction` control the flow between the
+ * two constructors.
+ *
+ * This shim should be better than forcing the polyfill because:
+ *   1. It's smaller
+ *   2. All reaction timings are the same as native (mostly synchronous)
+ *   3. All reaction triggering DOM operations are automatically supported
+ *
+ * There are some restrictions and requirements on ES5 constructors:
+ *   1. All constructors in a inheritance hierarchy must be ES5-style, so that
+ *      they can be called with Function.call(). This effectively means that the
+ *      whole application must be compiled to ES5.
+ *   2. Constructors must return the value of the emulated super() call. Like
+ *      `return SuperClass.call(this)`
+ *   3. The `this` reference should not be used before the emulated super() call
+ *      just like `this` is illegal to use before super() in ES6.
+ *   4. Constructors should not create other custom elements before the emulated
+ *      super() call. This is the same restriction as with native custom
+ *      elements.
+ *
+ *  Compiling valid class-based custom elements to ES5 will satisfy these
+ *  requirements with the latest version of popular transpilers.
+ */
+eval("(()=>{const a=window.HTMLElement,b=window.customElements.define,c=window.customElements.get,d=new Map,e=new Map;let f=!1,g=!1;window.HTMLElement=function(){if(!f){const a=d.get(this.constructor),b=c.call(window.customElements,a);g=!0;const e=new b;return e}f=!1},window.HTMLElement.prototype=a.prototype,window.customElements.define=((c,h)=>{const i=h.prototype,j=class extends a{constructor(){super(),Object.setPrototypeOf(this,i),g||(f=!0,h.call(this)),g=!1}},k=j.prototype;j.observedAttributes=h.observedAttributes,k.connectedCallback=i.connectedCallback,k.disconnectedCallback=i.disconnectedCallback,k.attributeChangedCallback=i.attributeChangedCallback,k.adoptedCallback=i.adoptedCallback,d.set(h,c),e.set(c,h),b.call(window.customElements,c,j)}),window.customElements.get=(a=>e.get(a))})();");
+
+
+/***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1752,16 +1752,19 @@ var Deferred = void 0;
 
 
 var polyfills = [{
-    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["a" /* isCustomEventNative */](),
+    validate: !__WEBPACK_IMPORTED_MODULE_0__feature_detection__["a" /* isCustomElementsNative */](),
+    filePath: 'native-shim'
+}, {
+    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["b" /* isCustomEventNative */](),
     filePath: 'custom-events'
 }, {
-    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["b" /* isFetchNative */](),
+    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["c" /* isFetchNative */](),
     filePath: 'fetch'
 }, {
-    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["c" /* isTemplateNative */](),
+    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["d" /* isTemplateNative */](),
     filePath: 'Template'
 }, {
-    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["d" /* isCustomElementsNative */](),
+    validate: __WEBPACK_IMPORTED_MODULE_0__feature_detection__["a" /* isCustomElementsNative */](),
     filePath: 'custom-elements'
 }];
 
@@ -2938,16 +2941,16 @@ return Promise;
 /***/ function(module, exports, __webpack_require__) {
 
 var map = {
-	"./Template": 1,
-	"./Template.js": 1,
-	"./custom-elements": 2,
-	"./custom-elements.js": 2,
-	"./custom-events": 3,
-	"./custom-events.js": 3,
-	"./fetch": 4,
-	"./fetch.js": 4,
-	"./native-shim": 0,
-	"./native-shim.js": 0
+	"./Template": 0,
+	"./Template.js": 0,
+	"./custom-elements": 1,
+	"./custom-elements.js": 1,
+	"./custom-events": 2,
+	"./custom-events.js": 2,
+	"./fetch": 3,
+	"./fetch.js": 3,
+	"./native-shim": 4,
+	"./native-shim.js": 4
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -2971,10 +2974,10 @@ webpackContext.id = 7;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ exports["c"] = isTemplateNative;
-/* harmony export (immutable) */ exports["d"] = isCustomElementsNative;
-/* harmony export (immutable) */ exports["b"] = isFetchNative;
-/* harmony export (immutable) */ exports["a"] = isCustomEventNative;
+/* harmony export (immutable) */ exports["d"] = isTemplateNative;
+/* harmony export (immutable) */ exports["a"] = isCustomElementsNative;
+/* harmony export (immutable) */ exports["c"] = isFetchNative;
+/* harmony export (immutable) */ exports["b"] = isCustomEventNative;
 /**
  * check for template element native support
  * @return {boolean} return feature available or not
@@ -3232,13 +3235,10 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_es6_promise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_native_shim__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_native_shim___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__lib_native_shim__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__(5);
-/* harmony reexport (binding) */ __webpack_require__.d(exports, "polyfills", function() { return __WEBPACK_IMPORTED_MODULE_2__config__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config__ = __webpack_require__(5);
+/* harmony reexport (binding) */ __webpack_require__.d(exports, "polyfills", function() { return __WEBPACK_IMPORTED_MODULE_1__config__["a"]; });
 /* harmony export (binding) */ __webpack_require__.d(exports, "ready", function() { return ready; });
 /* eslint-disable import/no-dynamic-require, prefer-template, global-require  */
-
 
 
 
@@ -3297,8 +3297,10 @@ function rejectedMessage(reason) {
  * once polyfills loaded then starts loading page assets from split chunks
  */
 function ready() {
-    return Promise.all(loadPolyfills(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* default */])).then(polyfillingComplete).catch(rejectedMessage);
+    return Promise.all(loadPolyfills(__WEBPACK_IMPORTED_MODULE_1__config__["a" /* default */])).then(polyfillingComplete).catch(rejectedMessage);
 }
+
+ready();
 
 
 
