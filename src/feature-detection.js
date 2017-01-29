@@ -29,3 +29,11 @@ export function isFetchNative() {
 export function isCustomEventNative() {
     return typeof window.CustomEvent === 'function';
 }
+
+/**
+ * check for shadowDOM native support
+ * @return {boolean} return feature available or not
+ */
+export function isShadowDOMNative() {
+    return !!HTMLElement.prototype.attachShadow;
+}

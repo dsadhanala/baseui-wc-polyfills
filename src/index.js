@@ -10,9 +10,10 @@ window.Promise = window.Promise || es6Promise.Promise;
  * add ready class to html element
  * Trigger page ready custom event once polyfills and page level scripts loaded
  */
-function polyfillingComplete() {
+function polyfillingComplete(polyfilled) {
     const rootEle = document.documentElement;
     rootEle.classList.add('wc-polyfilled');
+    return polyfilled;
 }
 
 /**
@@ -26,7 +27,6 @@ function loadPolyfills(polyfillFeatures) {
 
         return new Promise((resolve, reject) => {
             const filePath = item.filePath;
-
             /**
              *  this can be further optimized, to load as dynamic chunks
              *  but since HTTP2 support is not widely available
@@ -34,7 +34,7 @@ function loadPolyfills(polyfillFeatures) {
              */
             try {
                 require('./lib/' + filePath);
-                resolve();
+                resolve(filePath);
             } catch (e) {
                 reject(e);
             }

@@ -1,13 +1,17 @@
 {
   "name": "baseui-wc-polyfills",
-  "version": "0.0.3",
-  "description": "Web component polyfills",
+  "version": "0.0.5",
+  "description": "Web component polyfills bundle",
   "author": "Durga Prasad Sadhanala <dsadhanala@gmail.com>",
   "license": "MIT",
   "main": "dist/baseui-wc-polyfills.js",
   "module": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dsadhanala/baseui-wc-polyfills.git"
+  },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint src/**/*.js --ignore-pattern src/lib/**/* --quiet",
+    "lint": "./node_modules/.bin/eslint src/*.js --ignore-pattern lib/*.js --quiet",
     "webpackServer": "./node_modules/.bin/webpack-dev-server --config webpack.config.js",
     "start": "npm install && npm run dev",
     "dev": "npm run lint && npm run webpackServer",
@@ -25,14 +29,13 @@
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.5.0",
-    "html-webpack-plugin": "^2.25.0",
     "live-server": "^1.1.0",
     "lodash.camelcase": "^4.3.0",
     "lodash.mergewith": "^4.6.0",
     "open-browser-webpack-plugin": "0.0.3",
-    "webpack": "beta",
+    "webpack": "^2.2.0",
     "webpack-dashboard": "^0.2.0",
-    "webpack-dev-server": "beta",
+    "webpack-dev-server": "^2.2.0",
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {

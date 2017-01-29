@@ -9,25 +9,19 @@
         <h1>Demo Page</h1>
         <div id="print-log"></div>
 
-        <script>
-            window.addEventListener('wc-polyfilled', function(e) {
-                console.log(e);
-            });
+        <script defer>
             document.addEventListener('DOMContentLoaded', pageReady);
 
             function pageReady(){
-                var printLog = document.querySelector('#print-log');
-                window.addEventListener('wc-polyfilled', function(e) {
-                    console.log(e);
-                });
+                var printLogEle = document.querySelector('#print-log');
 
                 window.baseuiWcPolyfills.ready()
-                .then(printStatusOnPage(printLog))
+                .then(printStatusOnPage.bind(null, printLogEle))
                 .catch((reason) => console.error(`Failed due to ${reason}`));
             }
 
-            function printStatusOnPage(ele) {
-                ele.innerHTML = 'Polyfills loaded';
+            function printStatusOnPage(ele, polyfilled) {
+                ele.innerHTML = 'Polyfills loaded: ' + polyfilled.join(', ');
             }
         </script>
     </body>

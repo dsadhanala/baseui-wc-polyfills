@@ -20,6 +20,7 @@
     },
     "globals": {
         "window": true,
-        "document": true
+        "document": true,
+        "HTMLElement": true
     }
 }

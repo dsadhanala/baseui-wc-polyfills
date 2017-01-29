@@ -10,16 +10,24 @@ const polyfills = [
         filePath: 'custom-events'
     },
     {
+        validate: feature.isTemplateNative(),
+        filePath: 'template'
+    },
+    {
         validate: feature.isFetchNative(),
         filePath: 'fetch'
     },
     {
-        validate: feature.isTemplateNative(),
-        filePath: 'Template'
-    },
-    {
         validate: feature.isCustomElementsNative(),
         filePath: 'custom-elements'
+    },
+    {
+        validate: feature.isShadowDOMNative(),
+        filePath: 'shadycss.min'
+    },
+    {
+        validate: feature.isShadowDOMNative(),
+        filePath: 'shadydom.min'
     }
 ];
 
