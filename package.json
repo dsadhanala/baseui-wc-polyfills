@@ -1,6 +1,6 @@
 {
   "name": "baseui-wc-polyfills",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Web component polyfills bundle",
   "author": "Durga Prasad Sadhanala <dsadhanala@gmail.com>",
   "license": "MIT",

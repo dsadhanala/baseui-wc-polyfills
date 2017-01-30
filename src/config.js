@@ -22,12 +22,12 @@ const polyfills = [
         filePath: 'custom-elements'
     },
     {
-        validate: feature.isShadowDOMNative(),
-        filePath: 'shadycss.min'
+        validate: false, // force loading as safari native implementation was not working
+        filePath: 'shadydom.min'
     },
     {
-        validate: feature.isShadowDOMNative(),
-        filePath: 'shadydom.min'
+        validate: false, // force loading as safari native implementation was not working
+        filePath: 'shadycss.min'
     }
 ];
 

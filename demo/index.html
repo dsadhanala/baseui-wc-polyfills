@@ -4,10 +4,16 @@
         <meta charset="utf-8">
         <title>Demo page</title>
         <script src="../dist/baseui-wc-polyfills.js"></script>
+        <script defer src="./test-wc-ele_es5.js"></script>
     </head>
     <body>
         <h1>Demo Page</h1>
         <div id="print-log"></div>
+
+        <toggle-view toggle-view="table" data-search-url="https://jsonblob.com/api/jsonBlob/15a8245f-de11-11e6-90ab-ff101115ae1b">
+            <h1 slot="title">Web component &lt;toggle-view&gt; demo.</h1>
+            <p>This demo shows the usage of template, customElement and shadowDOM. Click on the component to see view toggle between list / table</p>
+        </toggle-view>
 
         <script defer>
             document.addEventListener('DOMContentLoaded', pageReady);
