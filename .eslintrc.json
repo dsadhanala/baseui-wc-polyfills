@@ -3,6 +3,10 @@
     "plugins": [
         "import"
     ],
+    "env": {
+        "node": true,
+        "mocha": true
+    },
     "rules": {
         "no-multi-spaces": 0,
         "key-spacing": 0,

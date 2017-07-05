@@ -1,7 +1,7 @@
 {
   "name": "baseui-wc-polyfills",
-  "version": "0.0.6",
-  "description": "Web component polyfills bundle",
+  "version": "0.0.7",
+  "description": "Web component polyfills bundle to simplify the usage",
   "author": "Durga Prasad Sadhanala <dsadhanala@gmail.com>",
   "license": "MIT",
   "main": "dist/baseui-wc-polyfills.js",
@@ -11,24 +11,36 @@
     "url": "git://github.com/dsadhanala/baseui-wc-polyfills.git"
   },
   "scripts": {
+    "clean": "./node_modules/.bin/del-cli ./dist && ./node_modules/.bin/del-cli ./coverage",
     "lint": "./node_modules/.bin/eslint src/*.js --ignore-pattern lib/*.js --quiet",
     "webpackServer": "./node_modules/.bin/webpack-dev-server --config webpack.config.js",
     "start": "npm install && npm run dev",
-    "dev": "npm run lint && npm run webpackServer",
-    "prod": "./node_modules/.bin/cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
+    "dev": "npm run clean && npm run lint && npm run webpackServer",
+    "prod": "npm run clean && ./node_modules/.bin/cross-env NODE_ENV=production ./node_modules/.bin/webpack --config webpack.config.js",
     "release": "npm run lint && npm run prod",
-    "server": "./node_modules/.bin/live-server --port=2929 --host=0.0.0.0 --open='./demo/'"
+    "server": "./node_modules/.bin/live-server --port=2929 --host=0.0.0.0 --open='./demo/'",
+    "test": "npm run clean && karma start karma.conf.js"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
     "babel-preset-es2015": "^6.18.0",
     "cross-env": "^3.1.3",
+    "del-cli": "^1.1.0",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.5.0",
+    "istanbul-instrumenter-loader": "^2.0.0",
+    "karma": "^1.7.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.3",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.3",
     "live-server": "^1.1.0",
     "lodash.camelcase": "^4.3.0",
     "lodash.mergewith": "^4.6.0",
@@ -39,6 +51,10 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "@webcomponents/webcomponentsjs": "git+https://github.com/webcomponents/webcomponentsjs.git",
+    "chrome-launcher": "^0.1.3",
     "es6-promise": "^4.0.5"
   }
 }

@@ -1,4 +1,4 @@
-import * as feature from './feature-detection';
+import * as feature from '../feature-detection';
 
 const polyfills = [
     {
