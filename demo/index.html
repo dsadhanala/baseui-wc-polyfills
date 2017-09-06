@@ -3,31 +3,52 @@
     <head>
         <meta charset="utf-8">
         <title>Demo page</title>
+        <style>
+            html{ font-size: 10px; }
+            body {
+                margin: 4rem;
+                font-family: sans-serif;
+                font-size: 1.3rem;
+            }
+            .log-loaded {
+                border-radius: 0.2rem;
+                padding: 0.4rem 1rem;
+                background-color: #fb3;
+                display: inline-block;
+            }
+        </style>
         <script src="../dist/baseui-wc-polyfills.js"></script>
-        <script defer src="./test-wc-ele_es5.js"></script>
     </head>
     <body>
-        <h1>Demo Page</h1>
-        <div id="print-log"></div>
-
-        <toggle-view toggle-view="table" data-search-url="https://jsonblob.com/api/jsonBlob/15a8245f-de11-11e6-90ab-ff101115ae1b">
+        <toggle-view toggle-view="table" data-search-url="https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=4270172fb5ba4b80b9aaf6369e38eb05">
             <h1 slot="title">Web component &lt;toggle-view&gt; demo.</h1>
             <p>This demo shows the usage of template, customElement and shadowDOM. Click on the component to see view toggle between list / table</p>
         </toggle-view>
 
-        <script defer>
+        <script async src="../demo/test-wc-ele/test-wc-ele_es5.js"></script>
+        <script>
             document.addEventListener('DOMContentLoaded', pageReady);
 
-            function pageReady(){
-                var printLogEle = document.querySelector('#print-log');
+            async function pageReady() {
+                let polyfilled = [];
+                try {
+                    /**
+                     *  load WC polyfills and return promise
+                     *  optional config to choose which polyfills needs to be initiated
+                     */
+                    polyfilled = await baseuiWcPolyfills.ready(/*{ wcPlatform: false, shadowDOM: false, customElements: false }*/);
+                }
+                catch(reason) {
+                    console.error(`Failed due to ${reason}`);
+                }
 
-                window.baseuiWcPolyfills.ready()
-                .then(printStatusOnPage.bind(null, printLogEle))
-                .catch((reason) => console.error(`Failed due to ${reason}`));
-            }
+                // if polyfills loaded show a banner
+                if (polyfilled.length === 0) return;
 
-            function printStatusOnPage(ele, polyfilled) {
-                ele.innerHTML = 'Polyfills loaded: ' + polyfilled.join(', ');
+                const logLoaded = document.createElement('span');
+                logLoaded.classList.add('log-loaded');
+                logLoaded.innerHTML = `Polyfills loaded: <strong>${polyfilled.join(', ')}</strong>`;
+                document.body.insertBefore(logLoaded, document.body.firstChild);
             }
         </script>
     </body>

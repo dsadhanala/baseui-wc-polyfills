@@ -1,6 +1,8 @@
 # Base UI: Web component polyfills bundle
 
-This bundle loads web component polyfills on to the page, adds CSS class 'wc-polyfilled' to the html element and returns promise.
+This bundle loads web component polyfills on to the page, adds CSS class 'wc-polyfilled' to the html element and returns promise. Refer the demo folder for demo WC element.
+
+Native shim has been removed from the package, instead use `babel-plugin-transform-builtin-classes` plugin to patch extending HTMLElement.
 
 #### Installing
 
@@ -32,6 +34,23 @@ require(['baseui-wc-polyfills'], function (baseuiWcPolyfills) {});
 ```
 
 #### Usage guide
+optionally you can pass config object to choose, whether some of the polyfills needs to be patched or not, by default all set to true.
+
+Available options:
+```
+{ wcPlatform: false, shadowDOM: false, customElements: false }
+```
+
+To get what polyfills loaded you can check the return value from promise object like below.
+```
+document.addEventListener('DOMContentLoaded', pageReady);
+async function pageReady() {
+    const polyfilled = await baseuiWcPolyfills.ready({ shadowDOM: false });
+}
+```
+
+or
+
 ```
 baseuiWcPolyfills.ready()
 .then(successCallback)
@@ -56,4 +75,9 @@ npm start
 #### To bundle for production (UMD)
 ```
 npm run release
+```
+
+#### To run unit tests
+```
+npm test
 ```

@@ -1,5 +1,3 @@
-var webpack = require('webpack');
-
 module.exports = (config) => {
     config.set({
         frameworks: ['mocha', 'chai'],
@@ -12,7 +10,7 @@ module.exports = (config) => {
         port: 1919, // karma web server port
         colors: true,
         logLevel: config.LOG_INFO,
-        browsers: ['ChromeHeadless'],
+        browsers: ['ChromeHeadless', 'Firefox'],
         autoWatch: true,
         autoWatchBatchDelay: 1000,
         // Karma captures browsers, runs the tests and exits
@@ -24,6 +22,7 @@ module.exports = (config) => {
         },
         plugins: [
             'karma-chrome-launcher',
+            'karma-firefox-launcher',
             'karma-chai',
             'karma-mocha',
             'karma-sourcemap-loader',
@@ -35,14 +34,12 @@ module.exports = (config) => {
             // just do inline source maps instead of the default
             devtool: 'inline-source-map',
             module: {
-                rules: [
-                    {
-                        test: /\.js$/,
-                        enforce: 'post',
-                        use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
-                        exclude: /(_test|lib|node_modules)\//
-                    }
-                ]
+                rules: [{
+                    test: /\.js$/,
+                    enforce: 'post',
+                    use: { loader: 'istanbul-instrumenter-loader', options: { esModules: true } },
+                    exclude: /(_test|lib|node_modules)\//
+                }]
             }
         },
         webpackMiddleware: {

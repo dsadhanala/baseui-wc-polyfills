@@ -8,6 +8,8 @@
         "mocha": true
     },
     "rules": {
+        "jsx-a11y/href-no-hash": "off",
+        "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
         "no-multi-spaces": 0,
         "key-spacing": 0,
         "indent": ["error", 4],
@@ -20,11 +22,13 @@
         "no-underscore-dangle": 0,
         "comma-dangle": 0,
         "no-useless-constructor": 0,
-        "max-len": 0
+        "max-len": 0,
+        "import/no-extraneous-dependencies": ["error", {"peerDependencies": true}]
     },
     "globals": {
         "window": true,
         "document": true,
-        "HTMLElement": true
+        "HTMLElement": true,
+        "expect": true
     }
 }

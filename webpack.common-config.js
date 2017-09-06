@@ -1,11 +1,11 @@
 /* eslint-disable */
-const webpack           = require('webpack');
-const path              = require('path');
-const camelCase         = require('lodash.camelcase');
-const mergeWith         = require('lodash.mergewith');
-const Dashboard         = require('webpack-dashboard');
-const DashboardPlugin   = require('webpack-dashboard/plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const webpack            = require('webpack');
+const path               = require('path');
+const camelCase          = require('lodash.camelcase');
+const mergeWith          = require('lodash.mergewith');
+const Dashboard          = require('webpack-dashboard');
+const DashboardPlugin    = require('webpack-dashboard/plugin');
+const OpenBrowserPlugin  = require('open-browser-webpack-plugin');
 
 const pkg                = require(path.join(process.cwd(), 'package.json'));
 const nodeEnv            = process.env.NODE_ENV || 'development';
@@ -14,14 +14,11 @@ const modulesPath        = path.resolve(__dirname, './src');
 const resolveModulesPath = [modulesPath, nodeModulesPath];
 
 function setloaders() {
-    return [
-        {
-            test: /\.js?$/,
-            use: ['babel-loader'],
-            include: modulesPath,
-            exclude: [nodeModulesPath]
-        }
-    ];
+    return [{
+        test: /\.js?$/,
+        use: ['babel-loader'],
+        exclude: [nodeModulesPath]
+    }];
 }
 
 function setPlugins(isProd) {
@@ -39,11 +36,7 @@ function setPlugins(isProd) {
         }),
     ];
 
-    if (isProd) {
-        plugins.push(
-            new webpack.optimize.UglifyJsPlugin({ warnings: false, include: /\.min\.js$/, minimize: true })
-        );
-    } else {
+    if (!isProd) {
         const dashboard = new Dashboard();
 
         plugins.push(
@@ -59,26 +52,25 @@ function setPlugins(isProd) {
 }
 
 function arrayMerge(objValue, srcValue) {
-    if (typeof objValue !== 'undefined' && Array.isArray(objValue)){
+    if (typeof objValue !== 'undefined' && Array.isArray(objValue)) {
         return objValue.concat(srcValue);
     }
 }
 
-exports.update = function (inheritedConfig, newConfig) {
+exports.update = function(inheritedConfig, newConfig) {
     return mergeWith(inheritedConfig, newConfig, arrayMerge);
 }
 
-exports.inheritedConfig = function () {
+exports.inheritedConfig = function() {
     const isProd = (nodeEnv === 'production');
 
     const config = {
-        devtool: isProd ? 'hidden-source-map' : 'eval-source-map',
+        devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map',
         performance: {
             hints: isProd ? 'warning' : false
         },
         entry: {
-            [pkg.name] : './src/index',
-            [pkg.name + '.min'] : './src/index'
+            [pkg.name]: './src/index'
         },
         output: {
             path: path.join(__dirname, 'dist'),
