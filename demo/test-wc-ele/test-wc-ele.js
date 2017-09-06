@@ -11,7 +11,7 @@ const styles = `
     }
 
     .wrapper {
-      border: 2px solid #ccc;
+      border: 1px solid #ccc;
       border-radius: 6px;
       color: #333;
       cursor: pointer;
@@ -39,7 +39,7 @@ const styles = `
     }
 
     :host([toggle-view="list"]) article:not(:last-child) {
-      border-bottom: 2px solid #ccc;
+      border-bottom: 1px solid #ccc;
     }
 
     :host([toggle-view="table"]) .wrapper {
@@ -57,12 +57,12 @@ const styles = `
       padding: 0 2%;
     }
 
-    :host([toggle-view="table"]) article:nth-child(-n+2):not(:last-child) {
-      border-bottom: 2px solid #ccc;
+    :host([toggle-view="table"]) article:not(:nth-last-child(-n+2)) {
+      border-bottom: 1px solid #ccc;
     }
 
     :host([toggle-view="table"]) article:nth-child(2n+2) {
-      border-left: 2px solid #ccc;
+      border-left: 1px solid #ccc;
     }
 
     h2 {
@@ -83,7 +83,7 @@ class ToggleView extends HTMLElement {
     constructor() {
         super();
 
-         // component template and styles
+        // component template and styles
         this._templateEle = document.createElement('template');
         this._templateEle.innerHTML = `${styles} ${markup}`;
 
@@ -94,7 +94,7 @@ class ToggleView extends HTMLElement {
 
         // props
         this._view = this.getAttribute('toggle-view');
-        this._searchUrl  = this.getAttribute('data-search-url');
+        this._searchUrl = this.getAttribute('data-search-url');
     }
 
     connectedCallback() {
@@ -119,52 +119,54 @@ class ToggleView extends HTMLElement {
         this.setAttribute('toggle-view', val);
     }
 
-    _promiseRejected(reason) {
+    static _promiseRejected(reason) {
         throw new Error(`Promise rejected due to ${reason}.`);
     }
 
     _getJSONResponse(url) {
-        return fetch(url)
+        return window.fetch(url)
             .then((response) => {
                 if (response.status >= 200 && response.status < 300) {
                     return response;
                 }
+
+                return false;
             })
             .then(response => response.json())
             .then(response => response)
-            .catch(this._promiseRejected);
+            .catch(this.constructor._promiseRejected);
     }
 
-    _createFeaturesList(item) {
+    static _createFeaturesList(item) {
         return `
-            <article>
-                <h2>${item.feature}</h2>
-                <p>${item.desc}</p>
-            </article>
-        `;
+        <article>
+            <h2>${item.title}</h2>
+            <p>${item.description}</p>
+        </article>
+    `;
     }
 
     _populateFeatures() {
         return new Promise((resolve, reject) => {
             const wcFeatures = this._getJSONResponse(this._searchUrl);
 
-            wcFeatures.then(response => {
-                const featuresList = response.map(this._createFeaturesList).join('');
-                this._templateEle.content.querySelector('[js-result-items]').innerHTML = featuresList;
+            wcFeatures.then(
+                (response) => {
+                    const featuresList = response.articles.map(this.constructor._createFeaturesList).join('');
+                    this._templateEle.content.querySelector('[js-result-items]').innerHTML = featuresList;
 
-                // resolve promise once template updated
-                resolve();
-            })
-            .catch(this._promiseRejected);
+                    // resolve promise once template updated
+                    resolve();
+                }
+            ).catch(reject);
         });
-
     }
 
     _render() {
         // polyfill for non-supported browsers
-        if(window.ShadyCSS) {
+        if (window.ShadyCSS) {
             window.ShadyCSS.prepareTemplate(this._templateEle, 'toggle-view');
-            window.ShadyCSS.applyStyle(this);
+            window.ShadyCSS.styleElement(this);
         }
 
         // add template content to shadowRoot
@@ -185,5 +187,5 @@ class ToggleView extends HTMLElement {
         this._wrapper.setAttribute('view', this.toggleView);
     }
 }
-
+window.ToggleView = ToggleView;
 window.customElements.define('toggle-view', ToggleView);
