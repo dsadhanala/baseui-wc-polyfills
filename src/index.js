@@ -2,18 +2,6 @@
 import getPolyfills from './config';
 
 /**
- * After pollyfilled, add ready class to html element
- * @param {Array} polyfilled list of features that are polyfilled
- * @return {Array} polyfilled
- */
-function polyfillingComplete(polyfilled) {
-    const rootEle = document.documentElement;
-    rootEle.classList.add('wc-polyfilled');
-
-    return polyfilled;
-}
-
-/**
  * This will check and polyfil features sent as a param
  * @param {array} polyfillFeatures list of features that needs to be polyfilled
  * @return {array} array of boolean/promise object which will trigger fulfilled/rejected state
@@ -36,6 +24,18 @@ function loadPolyfills(polyfillFeatures) {
             }
         });
     });
+}
+
+/**
+ * After pollyfilled, add ready class to html element
+ * @param {Array} polyfilled list of features that are polyfilled
+ * @return {Array} polyfilled
+ */
+function polyfillingComplete(polyfilled) {
+    const rootEle = document.documentElement;
+    rootEle.classList.add('wc-polyfilled');
+
+    return polyfilled;
 }
 
 /**

@@ -2,7 +2,11 @@
 
 This bundle loads web component polyfills on to the page, adds CSS class 'wc-polyfilled' to the html element and returns promise. Refer the demo folder for demo WC element.
 
-Native shim has been removed from the package, instead use `babel-plugin-transform-builtin-classes` plugin to patch extending HTMLElement.
+Note: you need to trigger initiating polyfills by calling `baseuiWcPolyfills.ready()` otherwise dependencies just load but never get patched.
+
+Refer below examples.
+- [custom element with shadowDOM](https://codepen.io/dsadhanala/pen/qRRXWp)
+- [custom element with extend](https://codepen.io/dsadhanala/pen/dNOqYg)
 
 #### Installing
 
@@ -38,7 +42,7 @@ optionally you can pass config object to choose, whether some of the polyfills n
 
 Available options:
 ```
-{ wcPlatform: false, shadowDOM: false, customElements: false }
+{ builtInClassShim = false, wcPlatform: false, shadowDOM: false, customElements: false }
 ```
 
 To get what polyfills loaded you can check the return value from promise object like below.

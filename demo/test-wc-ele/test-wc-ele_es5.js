@@ -1,84 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("testWC", [], factory);
-	else if(typeof exports === 'object')
-		exports["testWC"] = factory();
-	else
-		root["testWC"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "dist/";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 72);
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ 72:
-/***/ (function(module, exports) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -88,36 +8,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _fixBabelExtend = function (O) {
-    var gOPD = O.getOwnPropertyDescriptor,
-        gPO = O.getPrototypeOf || function (o) {
-        return o.__proto__;
-    },
-        sPO = O.setPrototypeOf || function (o, p) {
-        o.__proto__ = p;
-        return o;
-    },
-        construct = (typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === 'object' ? Reflect.construct : function (Parent, args, Class) {
-        var Constructor,
-            a = [null];
-        a.push.apply(a, args);
-        Constructor = Parent.bind.apply(Parent, a);
-        return sPO(new Constructor(), Class.prototype);
-    };
-
-    return function fixBabelExtend(Class) {
-        var Parent = gPO(Class);
-        return sPO(Class, sPO(function Super() {
-            return construct(Parent, arguments, gPO(this).constructor);
-        }, Parent));
-    };
-}(Object);
-
 var markup = '\n    <slot name="title"></slot>\n    <slot></slot>\n    <section class="wrapper" js-result-items></section>\n';
 
 var styles = '\n<style>\n    :host  {\n        display: block;\n    }\n\n    .wrapper {\n      border: 1px solid #ccc;\n      border-radius: 6px;\n      color: #333;\n      cursor: pointer;\n      position: relative;\n    }\n\n    .wrapper:after {\n      content: "view: " attr(view);\n      display: block;\n      background-color: #FFBB33;\n      position: absolute;\n      top: 0;\n      right: 0;\n      padding: 2px 6px;\n      border-top-right-radius: 4px;\n    }\n\n    :host([toggle-view="list"]) .wrapper {\n      margin: 0;\n    }\n\n    :host([toggle-view="list"]) article {\n      display: block;\n      padding: 0 2%;\n    }\n\n    :host([toggle-view="list"]) article:not(:last-child) {\n      border-bottom: 1px solid #ccc;\n    }\n\n    :host([toggle-view="table"]) .wrapper {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    }\n\n    :host([toggle-view="table"]) article {\n      -webkit-box-flex: 1;\n          -ms-flex: 1 0 calc(50% - (4% + 2px));\n              flex: 1 0 calc(50% - (4% + 2px));\n      padding: 0 2%;\n    }\n\n    :host([toggle-view="table"]) article:not(:nth-last-child(-n+2)) {\n      border-bottom: 1px solid #ccc;\n    }\n\n    :host([toggle-view="table"]) article:nth-child(2n+2) {\n      border-left: 1px solid #ccc;\n    }\n\n    h2 {\n      margin: 20px 0 0;\n    }\n\n    p {\n      margin-top: 5px;\n    }\n</style>\n';
 
-var ToggleView = _fixBabelExtend(function (_HTMLElement) {
+var ToggleView = function (_HTMLElement) {
     _inherits(ToggleView, _HTMLElement);
 
     _createClass(ToggleView, null, [{
@@ -243,12 +138,7 @@ var ToggleView = _fixBabelExtend(function (_HTMLElement) {
     }]);
 
     return ToggleView;
-}(HTMLElement));
+}(HTMLElement);
 
 window.ToggleView = ToggleView;
 window.customElements.define('toggle-view', ToggleView);
-
-/***/ })
-
-/******/ });
-});

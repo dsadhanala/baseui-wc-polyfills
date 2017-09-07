@@ -36,7 +36,9 @@
                      *  load WC polyfills and return promise
                      *  optional config to choose which polyfills needs to be initiated
                      */
-                    polyfilled = await baseuiWcPolyfills.ready(/*{ wcPlatform: false, shadowDOM: false, customElements: false }*/);
+                    polyfilled = await baseuiWcPolyfills.ready(/*
+                        { builtInClassShim = false, wcPlatform: false, shadowDOM: false, customElements: false }
+                    */);
                 }
                 catch(reason) {
                     console.error(`Failed due to ${reason}`);

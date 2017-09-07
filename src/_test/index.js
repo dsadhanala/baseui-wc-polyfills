@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import {
     isTemplateNative,
     isCustomElementsNative,
@@ -9,65 +8,56 @@ import {
 import { ready } from '../index';
 
 describe('BaseUI WebComponents polyfills tests:', () => {
-    it('should return empty polyfills list, when all features are native and no params', async () => {
-        const allNative = isCustomElementsNative()
-            && isShadowDOMNative()
-            && (isFetchNative() || isCustomEventNative() || isTemplateNative());
-        if (!allNative) return;
+    it('should return `empty` polyfills list, when all features are set to false', async () => {
+        const allDisabled = { builtInClassShim: false, wcPlatform: false, shadowDOM: false, customElements: false };
 
-        const actual = await ready();
+        const actual = await ready(allDisabled);
         expect(actual).to.have.lengthOf(0);
     });
 
-    it('should return empty polyfills list, when all features are set to false', async () => {
-        const actual = await ready({ wcPlatform: false, shadowDOM: false, customElements: false });
-        expect(actual).to.have.lengthOf(0);
-    });
+    it('should load `built-in-class-shim`, when `customElements` is native fature', async () => {
+        const disableRest = { wcPlatform: false, shadowDOM: false };
+        if (!isCustomElementsNative()) return;
 
-    it("should return shadowDOM polyfill, when it's not native", async () => {
-        if (isShadowDOMNative()) {
-            const actual = await ready({ customElements: false });
-            expect(actual).to.have.lengthOf(0);
-            return;
-        }
-
-        const actual = await ready({ customElements: false });
+        const actual = await ready(disableRest);
         expect(actual).to.have.lengthOf(1);
-        expect(actual[0]).to.be.equal('shadow-dom');
-
-        // when set to false it should not load
-        const disableLoading = await ready({ customElements: false, shadowDOM: false });
-        expect(disableLoading).to.have.lengthOf(0);
+        expect(actual[0]).to.be.equal('built-in-class-shim');
     });
 
-    it("should return customElements polyfill, when it's not native", async () => {
-        if (isCustomElementsNative()) {
-            const actual = await ready({ shadowDOM: false });
-            expect(actual).to.have.lengthOf(0);
-            return;
-        }
+    it('should load `customElements` polyfill, when it is not native fature', async () => {
+        const disableRest = { builtInClassShim: false, wcPlatform: false, shadowDOM: false };
+        if (isCustomElementsNative()) return;
 
-        const actual = await ready({ shadowDOM: false });
+        const actual = await ready(disableRest);
         expect(actual).to.have.lengthOf(1);
         expect(actual[0]).to.be.equal('custom-elements');
-
-        // when set to false it should not load
-        const disableLoading = await ready({ shadowDOM: false, customElements: false });
-        expect(disableLoading).to.have.lengthOf(0);
     });
 
-    it("should return wc-platform polyfills, when it's not native", async () => {
-        const actual = await ready({ shadowDOM: false, customElements: false });
-        if (isFetchNative() || isCustomEventNative() || isTemplateNative()) {
+    it('should load `shadowDOM` polyfill, when it is not native fature', async () => {
+        const disableRest = { builtInClassShim: false, wcPlatform: false, customElements: false };
+
+        if (isShadowDOMNative()) {
+            const actual = await ready(disableRest);
             expect(actual).to.have.lengthOf(0);
             return;
         }
 
+        const actual = await ready(disableRest);
         expect(actual).to.have.lengthOf(1);
-        expect(actual[0]).to.be.equal('wc-platform-polyfills');
+        expect(actual[0]).to.be.equal('shadow-dom');
+    });
 
-        // when set to false it should not load
-        const disableLoading = await ready({ wcPlatform: false });
-        expect(disableLoading).to.have.lengthOf(0);
+    it('should load `wc-platform polyfills`, when WC dependencies are not native features', async () => {
+        const disableRest = { builtInClassShim: false, shadowDOM: false, customElements: false };
+
+        if (!isCustomEventNative() || !isFetchNative() || !isTemplateNative()) {
+            const actual = await ready(disableRest);
+            expect(actual).to.have.lengthOf(1);
+            expect(actual[0]).to.be.equal('wc-platform-polyfills');
+            return;
+        }
+
+        const actual = await ready(disableRest);
+        expect(actual).to.have.lengthOf(0);
     });
 });

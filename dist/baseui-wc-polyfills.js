@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 33);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1339,7 +1339,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["children"] = children;
 /* harmony export (immutable) */ __webpack_exports__["innerHTML"] = innerHTML;
 /* harmony export (immutable) */ __webpack_exports__["textContent"] = textContent;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__innerHTML_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__innerHTML_js__ = __webpack_require__(24);
 /**
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -1922,7 +1922,7 @@ flush['list'] = flushList;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return patchOutsideElementAccessors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return patchInsideElementAccessors; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__innerHTML_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__innerHTML_js__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__native_tree_js__ = __webpack_require__(7);
 /**
 @license
@@ -2788,10 +2788,10 @@ const HOST_SUFFIX = '($|[.:[\\s>+~])';
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__asap__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__promise_all__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__promise_race__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__promise_all__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__promise_race__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__promise_resolve__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__promise_reject__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__promise_reject__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__then__ = __webpack_require__(11);
 
 
@@ -3274,7 +3274,7 @@ function flush() {
 function attemptVertx() {
   try {
     const r = require;
-    const vertx = __webpack_require__(64);
+    const vertx = __webpack_require__(65);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch(e) {
@@ -3296,7 +3296,7 @@ if (isNode) {
   scheduleFlush = useSetTimeout();
 }
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(63)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(64)))
 
 /***/ }),
 /* 19 */
@@ -3354,15 +3354,28 @@ function resolve(object) {
 
 /***/ }),
 /* 20 */
+/***/ (function(module, exports) {
+
+/* eslint-disable */
+/**
+ * ES5-style custom element classes will not work with native Custom Elements
+ * because ES5-style classes cannot properly extend ES6 classes, like HTMLElement
+ * and babel transpilation to ES5 using call and apply instead of Reflect.construct makes custom elements not usable in chrome
+ * below shim helps resolve this issue until babel core fixes
+ */
+eval("\n    (function () {\n        'use strict';\n\n        (()=>{'use strict';if(!window.customElements)return;const a=window.HTMLElement,b=window.customElements.define,c=window.customElements.get,d=new Map,e=new Map;let f=!1,g=!1;window.HTMLElement=function(){if(!f){const a=d.get(this.constructor),b=c.call(window.customElements,a);g=!0;const e=new b;return e}f=!1;},window.HTMLElement.prototype=a.prototype;Object.defineProperty(window,'customElements',{value:window.customElements,configurable:!0,writable:!0}),Object.defineProperty(window.customElements,'define',{value:(c,h)=>{const i=h.prototype,j=class extends a{constructor(){super(),Object.setPrototypeOf(this,i),g||(f=!0,h.call(this)),g=!1;}},k=j.prototype;j.observedAttributes=h.observedAttributes,k.connectedCallback=i.connectedCallback,k.disconnectedCallback=i.disconnectedCallback,k.attributeChangedCallback=i.attributeChangedCallback,k.adoptedCallback=i.adoptedCallback,d.set(h,c),e.set(c,h),b.call(window.customElements,c,j);},configurable:!0,writable:!0}),Object.defineProperty(window.customElements,'get',{value:(a)=>e.get(a),configurable:!0,writable:!0});})();\n\n        /**\n        @license\n        Copyright (c) 2017 The Polymer Project Authors. All rights reserved.\n        This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt\n        The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt\n        The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt\n        Code distributed by Google as part of the polymer project is also\n        subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt\n        */\n    }());\n");
+
+/***/ }),
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_custom_elements_src_custom_elements__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_custom_elements_src_custom_elements__ = __webpack_require__(37);
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3440,18 +3453,18 @@ let ParentNodeNativeMethods;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_shadydom_src_shadydom__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__webcomponents_shadycss_entrypoints_scoping_shim__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_shadydom_src_shadydom__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__webcomponents_shadycss_entrypoints_scoping_shim__ = __webpack_require__(51);
 
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3593,7 +3606,7 @@ function getInnerHTML(node, callback) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3607,7 +3620,7 @@ function getInnerHTML(node, callback) {
 /* harmony export (immutable) */ __webpack_exports__["a"] = cloneNode;
 /* harmony export (immutable) */ __webpack_exports__["c"] = importNode;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__logical_tree_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__logical_tree_js__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__native_methods_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__native_tree_js__ = __webpack_require__(7);
 /**
@@ -3970,7 +3983,7 @@ function importNode(node, deep) {
 }
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4099,7 +4112,7 @@ let recordChildNodes = function(node) {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4585,17 +4598,17 @@ function patchEvents() {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ShadyRoot; });
 /* harmony export (immutable) */ __webpack_exports__["b"] = attachShadow;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__logical_mutation_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_splice_js__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__logical_mutation_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__array_splice_js__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__flush_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__logical_tree_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__logical_tree_js__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__native_methods_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__native_tree_js__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__patch_accessors_js__ = __webpack_require__(14);
@@ -5125,7 +5138,7 @@ function attachShadow(host, options) {
 Object(__WEBPACK_IMPORTED_MODULE_7__patch_accessors_js__["f" /* patchShadowRootAccessors */])(ShadyRoot.prototype);
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5208,7 +5221,7 @@ class StyleInfo {
 StyleInfo.prototype['_getStyleRules'] = StyleInfo.prototype._getStyleRules;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5232,7 +5245,7 @@ const templateMap = {};
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5285,17 +5298,17 @@ function documentWait(callback) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_webcomponents_platform_webcomponents_platform__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_webcomponents_platform_webcomponents_platform__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__webcomponents_webcomponents_platform_webcomponents_platform___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__webcomponents_webcomponents_platform_webcomponents_platform__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__webcomponents_template_template__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__webcomponents_template_template__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__webcomponents_template_template___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__webcomponents_template_template__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_es6_promise_lib_es6_promise_auto__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_whatwg_fetch_fetch__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_es6_promise_lib_es6_promise_auto__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_whatwg_fetch_fetch__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_whatwg_fetch_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_whatwg_fetch_fetch__);
 
 
@@ -5303,28 +5316,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ready; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ready", function() { return ready; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config__ = __webpack_require__(34);
 /* eslint-disable import/no-dynamic-require, prefer-template, global-require  */
 
-
-/**
- * After pollyfilled, add ready class to html element
- * @param {Array} polyfilled list of features that are polyfilled
- * @return {Array} polyfilled
- */
-function polyfillingComplete(polyfilled) {
-    var rootEle = document.documentElement;
-    rootEle.classList.add('wc-polyfilled');
-
-    return polyfilled;
-}
 
 /**
  * This will check and polyfil features sent as a param
@@ -5342,13 +5343,25 @@ function loadPolyfills(polyfillFeatures) {
              *  bundling all into one file for now
              */
             try {
-                __webpack_require__(35)("./" + filePath);
+                __webpack_require__(36)("./" + filePath);
                 resolve(filePath);
             } catch (e) {
                 reject(e);
             }
         });
     });
+}
+
+/**
+ * After pollyfilled, add ready class to html element
+ * @param {Array} polyfilled list of features that are polyfilled
+ * @return {Array} polyfilled
+ */
+function polyfillingComplete(polyfilled) {
+    var rootEle = document.documentElement;
+    rootEle.classList.add('wc-polyfilled');
+
+    return polyfilled;
 }
 
 /**
@@ -5372,15 +5385,16 @@ function ready(polyfillsList) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feature_detection__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__feature_detection__ = __webpack_require__(35);
 
 
 /**
  * consumers of the polyfills can choose which one to load by sending config params
+ * @param {Boolean} [builtInClassShim=true] shim to help extend built in class when babel transpile customElements as ES5
  * @param {Boolean} [wcPlatform=true] set of platform polyfills that are required for IE11
  * @param {Boolean} [shadowDOM=true] shadyDOM and shadyCSS polyfills
  * @param {Boolean} [customElements=true] customElements polyfill
@@ -5388,6 +5402,8 @@ function ready(polyfillsList) {
  */
 function getPolyfills() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        _ref$builtInClassShim = _ref.builtInClassShim,
+        builtInClassShim = _ref$builtInClassShim === undefined ? true : _ref$builtInClassShim,
         _ref$wcPlatform = _ref.wcPlatform,
         wcPlatform = _ref$wcPlatform === undefined ? true : _ref$wcPlatform,
         _ref$shadowDOM = _ref.shadowDOM,
@@ -5396,13 +5412,16 @@ function getPolyfills() {
         customElements = _ref$customElements === undefined ? true : _ref$customElements;
 
     var list = [{
-        validate: wcPlatform ? __WEBPACK_IMPORTED_MODULE_0__feature_detection__["b" /* isCustomEventNative */]() || __WEBPACK_IMPORTED_MODULE_0__feature_detection__["c" /* isFetchNative */]() || __WEBPACK_IMPORTED_MODULE_0__feature_detection__["e" /* isTemplateNative */]() : true,
+        validate: builtInClassShim ? !Object(__WEBPACK_IMPORTED_MODULE_0__feature_detection__["a" /* isCustomElementsNative */])() : true,
+        filePath: 'built-in-class-shim'
+    }, {
+        validate: wcPlatform ? Object(__WEBPACK_IMPORTED_MODULE_0__feature_detection__["b" /* isCustomEventNative */])() || Object(__WEBPACK_IMPORTED_MODULE_0__feature_detection__["c" /* isFetchNative */])() || Object(__WEBPACK_IMPORTED_MODULE_0__feature_detection__["e" /* isTemplateNative */])() : true,
         filePath: 'wc-platform-polyfills'
     }, {
-        validate: shadowDOM ? __WEBPACK_IMPORTED_MODULE_0__feature_detection__["d" /* isShadowDOMNative */]() : true,
+        validate: shadowDOM ? Object(__WEBPACK_IMPORTED_MODULE_0__feature_detection__["d" /* isShadowDOMNative */])() : true,
         filePath: 'shadow-dom'
     }, {
-        validate: customElements ? __WEBPACK_IMPORTED_MODULE_0__feature_detection__["a" /* isCustomElementsNative */]() : true,
+        validate: customElements ? Object(__WEBPACK_IMPORTED_MODULE_0__feature_detection__["a" /* isCustomElementsNative */])() : true,
         filePath: 'custom-elements'
     }];
 
@@ -5414,7 +5433,7 @@ function getPolyfills() {
 /* harmony default export */ __webpack_exports__["a"] = (getPolyfills);
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5464,16 +5483,18 @@ function isShadowDOMNative() {
 }
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./custom-elements": 20,
-	"./custom-elements.js": 20,
-	"./shadow-dom": 22,
-	"./shadow-dom.js": 22,
-	"./wc-platform-polyfills": 31,
-	"./wc-platform-polyfills.js": 31
+	"./built-in-class-shim": 20,
+	"./built-in-class-shim.js": 20,
+	"./custom-elements": 21,
+	"./custom-elements.js": 21,
+	"./shadow-dom": 23,
+	"./shadow-dom.js": 23,
+	"./wc-platform-polyfills": 32,
+	"./wc-platform-polyfills.js": 32
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -5489,19 +5510,19 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 35;
+webpackContext.id = 36;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CustomElementInternals_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomElementRegistry_js__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Patch_HTMLElement_js__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Patch_Document_js__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Patch_Node_js__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Patch_Element_js__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomElementRegistry_js__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Patch_HTMLElement_js__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Patch_Document_js__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Patch_Node_js__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Patch_Element_js__ = __webpack_require__(45);
 /**
  * @license
  * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -5549,13 +5570,13 @@ if (!priorCustomElements ||
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CustomElementInternals_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DocumentConstructionObserver_js__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Deferred_js__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DocumentConstructionObserver_js__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Deferred_js__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Utilities_js__ = __webpack_require__(2);
 
 
@@ -5819,7 +5840,7 @@ CustomElementRegistry.prototype['polyfillWrapFlushCallback'] = CustomElementRegi
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5894,7 +5915,7 @@ class DocumentConstructionObserver {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5955,14 +5976,14 @@ class Deferred {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Native_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomElementInternals_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CustomElementState_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AlreadyConstructedMarker_js__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AlreadyConstructedMarker_js__ = __webpack_require__(42);
 
 
 
@@ -6020,7 +6041,7 @@ class Deferred {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6037,14 +6058,14 @@ class AlreadyConstructedMarker {}
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Native_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomElementInternals_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Utilities_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Interface_ParentNode_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Interface_ParentNode_js__ = __webpack_require__(22);
 
 
 
@@ -6126,7 +6147,7 @@ class AlreadyConstructedMarker {}
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6371,7 +6392,7 @@ class AlreadyConstructedMarker {}
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6379,8 +6400,8 @@ class AlreadyConstructedMarker {}
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomElementInternals_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CustomElementState_js__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Utilities_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Interface_ParentNode_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_ChildNode_js__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Interface_ParentNode_js__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Interface_ChildNode_js__ = __webpack_require__(46);
 
 
 
@@ -6626,7 +6647,7 @@ class AlreadyConstructedMarker {}
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6745,18 +6766,18 @@ let ChildNodeNativeMethods;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__flush_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__observe_changes_js__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__observe_changes_js__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__native_methods_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__native_tree_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__patch_builtins_js__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__patch_events_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__attach_shadow_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__patch_builtins_js__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__patch_events_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__attach_shadow_js__ = __webpack_require__(28);
 /**
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -6815,7 +6836,7 @@ if (__WEBPACK_IMPORTED_MODULE_0__utils_js__["j" /* settings */].inUse) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6938,7 +6959,7 @@ function filterMutations(mutations, target) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6946,10 +6967,10 @@ function filterMutations(mutations, target) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__flush_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__native_methods_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__logical_mutation_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__logical_mutation_js__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__patch_accessors_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__patch_events_js__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__attach_shadow_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__patch_events_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__attach_shadow_js__ = __webpack_require__(28);
 /**
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
@@ -7256,7 +7277,7 @@ function patchBuiltins() {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7515,11 +7536,11 @@ function calculateSplices(current, previous) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_scoping_shim_js__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__src_scoping_shim_js__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_style_settings_js__ = __webpack_require__(3);
 /**
 @license
@@ -7606,7 +7627,7 @@ if (CustomStyleInterface) {
 }
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7614,16 +7635,16 @@ if (CustomStyleInterface) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_settings_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_transformer_js__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_util_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_properties_js__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__style_placeholder_js__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__style_info_js__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__style_cache_js__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__document_watcher_js__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__template_map_js__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__apply_shim_utils_js__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__document_wait_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__common_utils_js__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__custom_style_interface_js__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__style_properties_js__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__style_placeholder_js__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__style_info_js__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__style_cache_js__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__document_watcher_js__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__template_map_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__apply_shim_utils_js__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__document_wait_js__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__common_utils_js__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__custom_style_interface_js__ = __webpack_require__(59);
 /**
 @license
 Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -8109,7 +8130,7 @@ Object.defineProperties(ScopingShim.prototype, {
 });
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8118,7 +8139,7 @@ Object.defineProperties(ScopingShim.prototype, {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__style_transformer_js__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__style_util_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_regex_js__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__style_info_js__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__style_info_js__ = __webpack_require__(29);
 /**
 @license
 Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -8725,7 +8746,7 @@ function addToBitMask(n, bits) {
 /* harmony default export */ __webpack_exports__["a"] = (new StyleProperties());
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8775,7 +8796,7 @@ if (ce && !__WEBPACK_IMPORTED_MODULE_1__style_settings_js__["b" /* nativeShadow 
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8835,7 +8856,7 @@ class StyleCache {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8973,7 +8994,7 @@ if (!__WEBPACK_IMPORTED_MODULE_0__style_settings_js__["b" /* nativeShadow */]) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8986,7 +9007,7 @@ if (!__WEBPACK_IMPORTED_MODULE_0__style_settings_js__["b" /* nativeShadow */]) {
 /* unused harmony export startValidating */
 /* harmony export (immutable) */ __webpack_exports__["b"] = startValidatingTemplate;
 /* unused harmony export elementsAreInvalid */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_map_js__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_map_js__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__css_parse_js__ = __webpack_require__(4);
 /**
 @license
@@ -9139,7 +9160,7 @@ function elementsAreInvalid() {
 }
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9209,13 +9230,13 @@ function detectMixin(cssText) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export CustomStyleProvider */
 /* unused harmony export CustomStyleInterfaceInterface */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__document_wait_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__document_wait_js__ = __webpack_require__(31);
 /**
 @license
 Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -9377,7 +9398,7 @@ let CustomStyleInterfaceInterface;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 /**
@@ -9504,7 +9525,7 @@ let CustomStyleInterfaceInterface;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 /**
@@ -9799,23 +9820,23 @@ let CustomStyleInterfaceInterface;
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__es6_promise__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__es6_promise__ = __webpack_require__(63);
 
 __WEBPACK_IMPORTED_MODULE_0__es6_promise__["a" /* default */].polyfill();
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0__es6_promise__["a" /* default */]);
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__es6_promise_promise__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__es6_promise_polyfill__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__es6_promise_polyfill__ = __webpack_require__(70);
 
 
 
@@ -9826,7 +9847,7 @@ __WEBPACK_IMPORTED_MODULE_0__es6_promise_promise__["a" /* default */].Promise = 
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -10016,18 +10037,18 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = all;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enumerator__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__enumerator__ = __webpack_require__(67);
 
 
 /**
@@ -10083,7 +10104,7 @@ function all(entries) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10193,7 +10214,7 @@ Enumerator.prototype._willSettleAt = function(promise, i) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10284,7 +10305,7 @@ function race(entries) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10336,7 +10357,7 @@ function reject(reason) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10378,10 +10399,10 @@ function polyfill() {
   local.Promise = __WEBPACK_IMPORTED_MODULE_0__promise__["a" /* default */];
 }
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(70)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(71)))
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 var g;
@@ -10408,7 +10429,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 (function(self) {
