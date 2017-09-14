@@ -29,6 +29,7 @@
         "window": true,
         "document": true,
         "HTMLElement": true,
-        "expect": true
+        "expect": true,
+        "CustomEvent": true
     }
 }

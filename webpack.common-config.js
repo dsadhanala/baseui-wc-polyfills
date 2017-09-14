@@ -6,9 +6,9 @@ const mergeWith          = require('lodash.mergewith');
 const Dashboard          = require('webpack-dashboard');
 const DashboardPlugin    = require('webpack-dashboard/plugin');
 const OpenBrowserPlugin  = require('open-browser-webpack-plugin');
+const UglifyJsPlugin  = require('uglifyjs-webpack-plugin');
 
 const pkg                = require(path.join(process.cwd(), 'package.json'));
-const nodeEnv            = process.env.NODE_ENV || 'development';
 const nodeModulesPath    = path.resolve(__dirname, './node_modules');
 const modulesPath        = path.resolve(__dirname, './src');
 const resolveModulesPath = [modulesPath, nodeModulesPath];
@@ -17,20 +17,12 @@ function setloaders() {
     return [{
         test: /\.js?$/,
         use: ['babel-loader'],
-        exclude: [nodeModulesPath]
+        exclude: [nodeModulesPath, path.resolve(__dirname,'./src/lib/built-in-class-shim.js')]
     }];
 }
 
-function setPlugins(isProd) {
+function setPlugins(isProd, nodeEnv) {
     const plugins = [
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false,
-            options: {
-                context: './src'
-            }
-        }),
-
         new webpack.DefinePlugin({
             'process.env': { NODE_ENV: JSON.stringify(nodeEnv) }
         }),
@@ -61,16 +53,30 @@ exports.update = function(inheritedConfig, newConfig) {
     return mergeWith(inheritedConfig, newConfig, arrayMerge);
 }
 
-exports.inheritedConfig = function() {
+exports.inheritedConfig = function(env) {
+    const nodeEnv = env.NODE_ENV;
     const isProd = (nodeEnv === 'production');
+    const minify = !!env.min;
 
+    process.env.NODE_ENV = nodeEnv;
     const config = {
-        devtool: isProd ? 'hidden-source-map' : 'cheap-module-source-map',
+        devtool: isProd ? 'source-map' : 'cheap-module-source-map',
+        mode: nodeEnv,
+        optimization: {
+            minimizer: (minify) ? [
+                new UglifyJsPlugin({
+                    uglifyOptions: {
+                      compress: { inline: 1 },
+                      parallel: true
+                    }
+                })
+            ] : []
+        },
         performance: {
             hints: isProd ? 'warning' : false
         },
         entry: {
-            [pkg.name]: './src/index'
+            [minify ? `${pkg.name}.min` : pkg.name] : './src/index'
         },
         output: {
             path: path.join(__dirname, 'dist'),
@@ -94,7 +100,7 @@ exports.inheritedConfig = function() {
             historyApiFallback: true,
             contentBase: './'
         },
-        plugins: setPlugins(isProd)
+        plugins: setPlugins(isProd, nodeEnv)
     };
 
     return config;

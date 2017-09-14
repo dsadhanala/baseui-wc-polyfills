@@ -3,29 +3,12 @@
     <head>
         <meta charset="utf-8">
         <title>Demo page</title>
-        <style>
-            html{ font-size: 10px; }
-            body {
-                margin: 4rem;
-                font-family: sans-serif;
-                font-size: 1.3rem;
-            }
-            .log-loaded {
-                border-radius: 0.2rem;
-                padding: 0.4rem 1rem;
-                background-color: #fb3;
-                display: inline-block;
-            }
-        </style>
-        <script src="../dist/baseui-wc-polyfills.js"></script>
+        <link rel="stylesheet" href="./styles.css">
+        <script src="../dist/baseui-wc-polyfills.min.js"></script>
+        <script src="../demo/test-wc-ele/test-wc-ele_es5.js"></script>
     </head>
     <body>
-        <toggle-view toggle-view="table" data-search-url="https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=4270172fb5ba4b80b9aaf6369e38eb05">
-            <h1 slot="title">Web component &lt;toggle-view&gt; demo.</h1>
-            <p>This demo shows the usage of template, customElement and shadowDOM. Click on the component to see view toggle between list / table</p>
-        </toggle-view>
-
-        <script async src="../demo/test-wc-ele/test-wc-ele_es5.js"></script>
+        <test-comp></test-comp>
         <script>
             document.addEventListener('DOMContentLoaded', pageReady);
 
@@ -36,9 +19,7 @@
                      *  load WC polyfills and return promise
                      *  optional config to choose which polyfills needs to be initiated
                      */
-                    polyfilled = await baseuiWcPolyfills.ready(/*
-                        { builtInClassShim = false, wcPlatform: false, shadowDOM: false, customElements: false }
-                    */);
+                    polyfilled = await baseuiWcPolyfills.ready();
                 }
                 catch(reason) {
                     console.error(`Failed due to ${reason}`);

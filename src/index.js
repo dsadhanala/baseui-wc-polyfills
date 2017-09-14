@@ -7,23 +7,27 @@ import getPolyfills from './config';
  * @return {array} array of boolean/promise object which will trigger fulfilled/rejected state
  */
 function loadPolyfills(polyfillFeatures) {
-    return polyfillFeatures.map((item) => {
-        const filePath = item.filePath;
+    return polyfillFeatures
+        .map((item) => {
+            if (item.validate) return false;
 
-        return new Promise((resolve, reject) => {
-            /**
-             *  this can be further optimized, to load as dynamic chunks
-             *  but since HTTP2 support is not widely available
-             *  bundling all into one file for now
-             */
-            try {
-                require('./lib/' + filePath);
-                resolve(filePath);
-            } catch (e) {
-                reject(e);
-            }
-        });
-    });
+            const { filePath } = item;
+
+            return new Promise((resolve, reject) => {
+                /**
+                 *  this can be further optimized, to load as dynamic chunks
+                 *  but since HTTP2 support is not widely available
+                 *  bundling all into one file for now
+                 */
+                try {
+                    require(`./lib/${filePath}`);
+                    resolve(filePath);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        })
+        .filter(valid => valid);
 }
 
 /**
@@ -32,8 +36,13 @@ function loadPolyfills(polyfillFeatures) {
  * @return {Array} polyfilled
  */
 function polyfillingComplete(polyfilled) {
-    const rootEle = document.documentElement;
-    rootEle.classList.add('wc-polyfilled');
+    window.requestAnimationFrame(() => {
+        const rootEle = document.documentElement;
+        rootEle.classList.add('wc-polyfilled');
+
+        window.WebComponents = { ready: true };
+        document.dispatchEvent(new CustomEvent('WebComponentsReady', { detail: polyfilled }));
+    });
 
     return polyfilled;
 }
@@ -50,12 +59,14 @@ function rejectedMessage(reason) {
  * This checks for native features support and initiates polyfills loading
  * once polyfills loaded then starts loading page assets from split chunks
  */
-function ready(polyfillsList) {
-    const nonSupportedPolyfills = getPolyfills(polyfillsList);
+export function ready() {
+    if (window.WebComponents) return Promise.resolve([]);
 
-    return Promise.all(loadPolyfills(nonSupportedPolyfills))
+    return Promise.all(loadPolyfills(getPolyfills))
         .then(polyfillingComplete)
         .catch(rejectedMessage);
 }
 
-export { ready as default, ready };
+ready();
+
+export default ready;

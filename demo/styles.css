@@ -1,0 +1,106 @@
+html{ font-size: 10px; }
+body {
+    margin: 4rem;
+    font-family: sans-serif;
+    font-size: 1.3rem;
+}
+
+.log-loaded {
+    border-radius: 0.2rem;
+    padding: 0.4rem 1rem;
+    background-color: #fb3;
+    display: inline-block;
+}
+
+.page-wrap {
+    font-size: 1.4rem;
+    margin: 4rem auto;
+    max-width: 80%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.page-wrap ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.page-wrap li {
+    margin: 1rem 0;
+}
+
+button[js-toggle-btn] {
+    padding: 8px 10px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+/* compiled code for WC test */
+body {
+  margin: 2% 4%;
+}
+
+h3 {
+  margin: 40px 0 10px;
+}
+
+toggle-view,
+extended-toggle-view {
+    display: block;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    color: #333;
+    cursor: pointer;
+    position: relative;
+}
+
+toggle-view:after,
+extended-toggle-view:after {
+    content: "view: " attr(toggle-view);
+    display: block;
+    background-color: #FFBB33;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 6px;
+    border-top-right-radius: 4px;
+}
+
+toggle-view[toggle-view="list"],
+extended-toggle-view[toggle-view="list"] {
+    margin: 0;
+}
+
+toggle-view[toggle-view="list"] article,
+extended-toggle-view[toggle-view="list"] article {
+    display: block;
+    padding: 0 2%;
+}
+
+toggle-view[toggle-view="list"] article:not(:last-child),
+extended-toggle-view[toggle-view="list"] article:not(:last-child) {
+    border-bottom: 2px solid #ccc;
+}
+
+toggle-view[toggle-view="table"],
+extended-toggle-view[toggle-view="table"] {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+toggle-view[toggle-view="table"] article,
+extended-toggle-view[toggle-view="table"] article {
+    flex: 1 0 calc(50% - (4% + 2px));
+    padding: 0 2%;
+}
+
+toggle-view[toggle-view="table"] article:nth-child(2n+2),
+extended-toggle-view[toggle-view="table"] article:nth-child(2n+2) {
+    border-left: 2px solid #ccc;
+}
+
+toggle-view[toggle-view="table"] article:not(:nth-last-child(-n+2)),
+extended-toggle-view[toggle-view="table"] article:not(:nth-last-child(-n+2)) {
+    border-bottom: 2px solid #ccc;
+}
