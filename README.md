@@ -1,4 +1,7 @@
 # Base UI: Web component polyfills bundle
+[![npm](https://img.shields.io/npm/v/baseui-wc-polyfills.svg)](https://www.npmjs.com/package/baseui-wc-polyfills)
+[![license](https://img.shields.io/npm/l/baseui-wc-polyfills.svg)](https://opensource.org/licenses/MIT)
+[![gzip size](http://img.badgesize.io/https://unpkg.com/baseui-wc-polyfills/dist/baseui-wc-polyfills.min.js?compression=gzip&label=baseUIWcPolyfills)](https://unpkg.com/baseui-wc-polyfills/dist/baseui-wc-polyfills.min.js)
 
 This bundle loads web component polyfills on to the page, adds CSS class 'wc-polyfilled' to the html element and returns promise. Refer the demo folder for demo WC element.
 
