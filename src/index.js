@@ -1,5 +1,10 @@
 /* eslint-disable import/no-dynamic-require, prefer-template, global-require  */
+// this needs to be imported first to avoid IE11 breaking
+import es6Promise from 'es6-promise';
 import getPolyfills from './config';
+
+// Polyfill promise before loading others
+window.Promise = window.Promise || es6Promise.Promise;
 
 /**
  * This will check and polyfil features sent as a param
